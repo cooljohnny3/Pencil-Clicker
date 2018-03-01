@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/game.css">
+        <script src="js/main.js"></script>
+        <title>Pencil Clicker</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box grid">
+                <h1 class="item1">Pencil Clicker</h1>
+                <div>
+                    <p>You have clicked the button <span id="total">0</span> times.</p>
+                    <p>You have <span id="current">0</span> pencils.</p>
+                    <p>You are generating <span id="auto">0</span> pencils/sec.</p>
+                </div>
+
+                <div><img src="img/pencil.jpg" id="pencil" onclick="doClick()"></div>
+
+                <div class="upgrades">
+                    <h3 id="upgrade1count">0</h3>
+                    <div class="upgrade-box" onclick="buyUpgrade(1)">
+                        Upgrade 1<br>Cost <span id="cost1">10</span><br>Generates 1
+                    </div>
+                    <h3 id="upgrade2count">0</h3>
+                    <div class="upgrade-box" onclick="buyUpgrade(2)">
+                        Upgrade 2<br>Cost <span id="cost2">50</span><br>Generates 5
+                    </div>
+                    <h3 id="upgrade3count">0</h3>
+                    <div class="upgrade-box" onclick="buyUpgrade(3)">
+                        Upgrade 3<br>Cost <span id="cost3">100</span><br>Generates 20
+                    </div>
+                    <h3 id="upgrade4count">0</h3>
+                    <div class="upgrade-box" onclick="buyUpgrade(4)">
+                        Upgrade 4<br>Cost <span id="cost4">500</span><br>Generates 50
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Created by John Brehm on February 28, 2018</p>
+        </footer>
+    </body>
+</html>
