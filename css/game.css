@@ -5,14 +5,23 @@
     border-radius: 10%;
 }
 
+#pencil:active {
+    transform: scale(.99, .99);
+}
+
 .grid {
     display: grid;
     grid-template-columns: 25% 50% 25%;
     justify-items: center;
 }
 
-.item1 {
+#header {
     grid-column: 1 / span 3;
+}
+
+#saveButton {
+    margin-top: 2em;
+    grid-column: 1 /span 3;
 }
 
 .upgrades {
@@ -22,13 +31,18 @@
 }
 
 .upgrade-box {
+    line-height: 1.2em;
     text-align: center;
     border: solid red 1px;
     width: 180px;
-    height: 60px;
+    height: auto;
     display: block;
 }
 
 .upgrade-box:hover {
     background-color: red;
+}
+
+.upgrade-box:active {
+    transform: scale(.95, .95);
 }

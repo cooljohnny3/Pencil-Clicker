@@ -1,43 +1,41 @@
 //Total number of clicks
-total = 0;
+var total = 0;
 //Current number of pencils
-current = 0;
+var current = 0;
 //Pencils/sec rate
-autoClick = 0;
+var autoClick = 0;
+
+var upgrades = [new Upgrade(10, 0, 1), 
+                new Upgrade(50, 0, 5), 
+                new Upgrade(100, 0, 10),
+                new Upgrade(500, 0, 50)];
 
 //Constructor for upgrades
-function Upgrade(name, cost, count, power) {
-    this.name = name;
+function Upgrade(cost, count, power) {
     this.cost = cost;
     this.count = count;
     this.power = power;
 }
 
-//Once saving is implimented will add this
+//Function to start the timer and get upgrade counts
 function initialize(){
-    //if save doesn't exist
+    load();
 
-    //Intial upgrade values
-    upgrades = [new Upgrade("Upgrade1", 10, 0, 1), 
-    new Upgrade("Upgrade2", 50, 0, 5), 
-    new Upgrade("Upgrade3", 100, 0, 10),
-    new Upgrade("Upgrade4", 500, 0, 50)];
-}
-
-//Auto click every second
-setInterval(function() {
-    current += autoClick;
-    update();
-}, 1000)
-
-function doClick(){
-    incriment();
-    update();
+    //Auto click every second
+    setInterval(function() {
+        current += autoClick;
+        update();
+    }, 1000)
 }
 
 function incriment(){
     total++;
     current++;
+}
+
+function doClick(){
+    incriment();
+    update();
 }
 
 //Updates numbers on screen
@@ -47,7 +45,7 @@ function update(){
     updateUpgradeCost();
 }
 
-//Updates stats
+//Updates stats on screen
 function updateStats(){
     var count1 = document.getElementById("total");
     count1.innerHTML = total;
@@ -116,4 +114,65 @@ function calcCost(num){
     }
 }
 
-initialize();
+function calcCostAll(){
+    for(var i=1; i < 5; i++){
+        calcCost(i);
+    }
+}
+
+//Calculates autoClick
+function calcAuto(){
+    autoClick += upgrades[0].count * 1;
+    autoClick += upgrades[1].count * 5;
+    autoClick += upgrades[2].count * 20;
+    autoClick += upgrades[3].count * 50;
+}
+
+//Save
+//TODO see if can get working with loop (maybe recurrsion?)
+function save(){
+    document.cookie = "total=" + total;
+    document.cookie = "current=" + current;
+    document.cookie = "count1=" + upgrades[0].count;
+    document.cookie = "count2=" + upgrades[1].count;
+    document.cookie = "count3=" + upgrades[2].count;
+    document.cookie = "count4=" + upgrades[3].count;
+    //TODO add expire time
+}
+
+//Finds the value of cName in cookies
+function getCookie(cName){
+    var name = cName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function getCount(){
+    for(var i = 1; i < 5; i++){
+        upgrades[i-1].count = getCookie("count" + i);
+    }
+}
+
+//Loads the values from cookie
+function load(){
+    if(getCookie("total") != ""){
+        total = getCookie("total");
+        currnet = getCookie("current");
+        //Need to get count first in order to calc auto and cost
+        getCount();
+        calcAuto();
+        calcCostAll();
+    }
+}
+
+window.onload=initialize();
