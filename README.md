@@ -1,2 +1,2 @@
 # Pencil-Clicker
-This is a clicker game I wrote in n afternoon when I was supposed to be studying.
+A clicker game I made to become more familiar with JavaScript.
